@@ -1,0 +1,159 @@
+<html>
+    <head>
+        <h1>FPID Demo</h1>
+        <link rel="stylesheet" type="text/css" href="css/style.css" />
+        <script src="https://assets.adobedtm.com/331fbea29f79/a5b25a446515/launch-0fe36a4fb57d-development.min.js" async></script>
+        <script type="text/javascript">
+
+            function getUUID() {
+                return ([1e7]+-1e3+-4e3+-8e3+-1e11).replace(/[018]/g, c =>
+                        (c ^ crypto.getRandomValues(new Uint8Array(1))[0] & 15 >> c / 4).toString(16)
+                    );
+            }
+
+            function generateUUID() {
+                var fpidValue = getUUID();
+                if(cbFPID.checked == 1) {
+                    document.getElementById("fpidValue").innerHTML = "FPID Value: " + fpidValue;
+                } else {
+                    document.getElementById("fpidValue").innerHTML = "FPID Value: " + fpidValue;
+                    //document.getElementById("fpidValue").innerHTML = "FPID Value: Not enabled yet";
+                }
+                generateTable();
+                setCookie("FPID","value-1");
+            }
+            window.onload = generateUUID;
+
+            function reload() {
+                if(cbFPID.checked == 1) {
+                    document.getElementById("iframe").src = "Launch_Demo.html";
+                } else {
+                    document.getElementById("iframe").src = "PreLaunch_Demo.html";
+                }
+            }
+
+            function generateTable() {
+                
+                let table = document.querySelector("table");
+                
+                // Table Head
+                let thead = table.createTHead();
+                let row = thead.insertRow();
+                let th = document.createElement("th");
+                let text = document.createTextNode("Visitor Count");
+                th.appendChild(text);
+                row.appendChild(th);
+
+                th = document.createElement("th");
+                text = document.createTextNode("FPID");
+                th.appendChild(text);
+                row.appendChild(th);
+
+                th = document.createElement("th");
+                text = document.createTextNode("ECID");
+                th.appendChild(text);
+                row.appendChild(th);
+
+                let tbody = table.createTBody();
+                // Table Rows
+                for(let i = 0; i < 10; i++) {
+                    row = tbody.insertRow();
+
+                    td = document.createElement("td");
+                    text = document.createTextNode(i+1);
+                    td.appendChild(text);
+                    row.appendChild(td);
+
+                    td = document.createElement("td");
+                    text = document.createTextNode(getUUID());
+                    td.appendChild(text);
+                    row.appendChild(td);
+
+                    td = document.createElement("td");
+                    text = document.createTextNode(getUUID());
+                    td.appendChild(text);
+                    row.appendChild(td);
+                }
+            }
+
+            function getCookie(name) {
+                var dc = document.cookie;
+                var prefix = name + "=";
+                var begin = dc.indexOf("; " + prefix);
+                if (begin == -1) {
+                    begin = dc.indexOf(prefix);
+                    if (begin != 0) return null;
+                }
+                else
+                {
+                    begin += 2;
+                    var end = document.cookie.indexOf(";", begin);
+                    if (end == -1) {
+                    end = dc.length;
+                    }
+                }
+                // because unescape has been deprecated, replaced with decodeURI
+                //return unescape(dc.substring(begin + prefix.length, end));
+                return decodeURI(dc.substring(begin + prefix.length, end));
+            } 
+
+            function setCookie(cname, cvalue) {
+                
+                let d = getTimeStampAfter2Years();
+                let expires = "expires="+ d.toUTCString();
+                document.cookie = cname + "=" + cvalue + ";domain=example.com;Secure;" + expires;
+            }
+
+            function createOrUpdateCookie() {
+                var fpidValue = getCookie("FPID");
+                if(!!fpidValue) {
+                    console.log("FPID Cookie exists with value " + fpidValue);
+                } else {
+                    fpidValue = getUUID();
+                    console.log("FPID Cookie created with value " + fpidValue);
+                }
+                setCookie("FPID", fpidValue);
+            }
+
+            function getTimeStampAfter2Years() {
+                var d = new Date();
+                var targetDate = new Date(d.getFullYear()+2, d.getMonth(), d.getDate(), d.getHours(), d.getMinutes(), d.getSeconds(), d.getMilliseconds());
+                return targetDate;
+            }
+
+        </script>
+    </head>
+    <body>
+        <input type="checkbox" id="cbFPID" name="cbFPID" onclick="reload()"><label for="cbFPID">Is FPID Launched?</label><br><br>
+        <div id="fpidValue"></div><br>
+        ECID Value: <div id="ecidValue"></div><br>
+
+        <div class="float-container">
+            <div class="float-child1">
+                <iframe src="PreLaunch_Demo.html" id="iframe"  class="iFrameContainer" frameborder="1"></iframe>
+                <br>
+                <input type="button" id="refreshButton" value="Refresh" onclick="reload()" />
+                    </div>
+            <div class="float-child2">
+                <table class="styled-table"></table>
+            </div>
+        </div>
+
+<!--        
+        <br/>
+        
+        <div>
+            <a href="PreLaunch_Demo.html" target="iframe">Link to Pre-Launch State</a><br />
+            <a href="Launch_Demo.html" target="iframe">Link to Launch State</a>
+        </div>
+        <br><br>
+-->
+  
+        <script>
+            //function reload() {
+            //    document.getElementById("iframe").src = "PreLaunch_Demo.html";
+            //}
+            //refreshButton.onclick = reload;
+        </script>
+    </body>
+</html>

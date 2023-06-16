@@ -1,0 +1,17 @@
+<html>
+    <head>
+        <h3>FPID Launch Demo</h3>
+        <script type="text/javascript">
+            function refreshTimeStamp() {
+                var dt = new Date();
+                document.getElementById("timeStamp").innerHTML = "Refresh Timestamp: " + dt.toLocaleString();
+            }
+            window.onload = refreshTimeStamp;
+        </script>
+    </head>
+    <body>
+        <div id="timeStamp"></div>
+        FPID Value: <div id="fpidValue"></div>
+        ECID Value: <div id="ecidValue"></div>
+    </body>
+</html>
