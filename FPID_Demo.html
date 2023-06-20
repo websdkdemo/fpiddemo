@@ -160,10 +160,22 @@
                 setCookie("FPID", fpidValue);
             }
 
-            function getTimeStampAfter2Years() {
+            function getPastTimeStamp() {
                 var d = new Date();
-                var targetDate = new Date(d.getFullYear()+2, d.getMonth(), d.getDate(), d.getHours(), d.getMinutes(), d.getSeconds(), d.getMilliseconds());
-                return targetDate;
+                return new Date(d.getFullYear()-1, d.getMonth(), d.getDate(), d.getHours(), d.getMinutes(), d.getSeconds(), d.getMilliseconds());
+            }
+
+            function clearCookies(donotClearFPID) {
+                var cookies = document.cookie.split(";");
+                var cookie, eqPos, name;
+                for (let i = 0; i < cookies.length; i++) {
+                    cookie = cookies[i];
+                    eqPos = cookie.indexOf("=");
+                    name = eqPos > -1 ? cookie.substr(0, eqPos) : cookie;
+                    if(name == "FPID" && donotClearFPID == 1) {
+                        document.cookie = name + "=;expires=Thu, 01 Jan 2023 00:00:00 GMT";
+                    }
+                }
             }
 
 
@@ -177,9 +189,11 @@
         <div class="float-container">
             <div class="float-child1">
                 <iframe src="PreLaunch_Demo.html" id="iframe"  class="iFrameContainer" frameborder="1"></iframe>
-                <br>
+                <br><br>
                 <input type="button" id="refreshButton" value="Refresh" onclick="reload()" />
-                    </div>
+                <input type="button" id="clearAllCookiesButton" value="Clear All Cookies" onclick="clearCookies()" />
+                <input type="button" id="clearCookiesExceptFPIDButton" value="Clear Cookies Except FPID" onclick="clearCookies(1)" />
+            </div>
             <div class="float-child2">
                 <table class="styled-table"></table>
             </div>
