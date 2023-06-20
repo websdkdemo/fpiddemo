@@ -165,6 +165,11 @@
                 return new Date(d.getFullYear()-1, d.getMonth(), d.getDate(), d.getHours(), d.getMinutes(), d.getSeconds(), d.getMilliseconds());
             }
 
+            function getTimeStampAfter2Years() {
+                var d = new Date();
+                return new Date(d.getFullYear()+2, d.getMonth(), d.getDate(), d.getHours(), d.getMinutes(), d.getSeconds(), d.getMilliseconds());
+            }
+
             function clearAllCookies() {
                 var allCookies = document.cookie.split(';');
                 
