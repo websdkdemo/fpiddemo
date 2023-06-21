@@ -178,6 +178,7 @@
                     cookie = cookies[i];
                     eqPos = cookie.indexOf("=");
                     name = eqPos > -1 ? cookie.substr(0, eqPos) : cookie;
+                    name = name.trim();
                     document.cookie = name + "=; Path=/; expires="
                         + new Date(0).toUTCString();
                 }
@@ -191,6 +192,7 @@
                     cookie = cookies[i];
                     eqPos = cookie.indexOf("=");
                     name = eqPos > -1 ? cookie.substr(0, eqPos) : cookie;
+                    name = name.trim();
                     if(name != "FPID") {
                         document.cookie = name + "=; Path=/; expires="
                             + new Date(0).toUTCString();
