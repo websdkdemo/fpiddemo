@@ -180,7 +180,7 @@
                     document.cookie = allCookies[i] + "=; Path=/; expires="
                         + new Date(0).toUTCString();
                 }
-                document.getElementById("fpidValue").innerHTML = "Cleared all cookies...";
+                document.getElementById("recentChange").innerHTML = "Cleared all cookies...";
             }
 
             function clearAllCookiesExceptFPID() {
@@ -195,7 +195,7 @@
                             + new Date(0).toUTCString();
                     }
                 }
-                document.getElementById("fpidValue").innerHTML = "Cleared all cookies except FPID...";
+                document.getElementById("recentChange").innerHTML = "Cleared all cookies except FPID...";
             }
 
         </script>
@@ -204,6 +204,12 @@
         <input type="checkbox" id="cbFPID" name="cbFPID" onclick="reload()"><label for="cbFPID">Is FPID Launched?</label><br><br>
         <div id="fpidValue"></div><br>
         ECID Value: <div id="ecidValue"></div><br>
+
+        <br><br>
+
+        Recent Change: 
+        <br>
+        <div id="recentChange"></div>
 
         <div class="float-container">
             <div class="float-child1">
@@ -222,9 +228,6 @@
 
         <br><br>
 
-        Recent Change: 
-        <br>
-        <div id="recentChange"></div>
 
 <!--        
         <br/>
