@@ -70,13 +70,7 @@
                     document.getElementById("fpidValue").innerHTML = "FPID Value: " + fpidValue;
                     //document.getElementById("fpidValue").innerHTML = "FPID Value: Not enabled yet";
                 }
-                var curECID = retrieveECID();
-                if(prevECID != curECID) {
-                    index++;
-                    ecidArray[index] = curECID;
-                    prevECID = curECID;
-                }
-                
+                updateIDArrays();
                 generateTable();
                 _satellite.setCookie("FPID","Value-1",100);
                 //setCookie("FPID","value-1");
@@ -93,12 +87,22 @@
                 return ecid;
             }
 
+            function updateIDArrays() {
+                var curECID = retrieveECID();
+                if(prevECID != curECID) {
+                    index++;
+                    ecidArray[index] = curECID;
+                    prevECID = curECID;
+                }
+            }
+
             function reload() {
                 if(cbFPID.checked == 1) {
                     document.getElementById("iframe").src = "Launch_Demo.html";
                 } else {
                     document.getElementById("iframe").src = "PreLaunch_Demo.html";
                 }
+                updateIDArrays();
                 generateTable();
             }
 
