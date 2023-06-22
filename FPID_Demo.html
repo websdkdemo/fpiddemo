@@ -50,6 +50,12 @@
         <script src="https://assets.adobedtm.com/22bf1a13013f/45c48148f3db/launch-3bb83e881f0c-development.min.js" async></script>
         <script type="text/javascript">
 
+            var index,fpidArray,ecidArray,prevECID;
+            index = -1;
+            fpidArray = [];
+            ecidArray = [];
+            prevECID = "";
+
             function getUUID() {
                 return ([1e7]+-1e3+-4e3+-8e3+-1e11).replace(/[018]/g, c =>
                         (c ^ crypto.getRandomValues(new Uint8Array(1))[0] & 15 >> c / 4).toString(16)
@@ -64,11 +70,26 @@
                     document.getElementById("fpidValue").innerHTML = "FPID Value: " + fpidValue;
                     //document.getElementById("fpidValue").innerHTML = "FPID Value: Not enabled yet";
                 }
+                var curECID = retrieveECID();
+                if(prevECID != curECID) {
+                    index++;
+                    ecidArray[index] = curECID;
+                    prevECID = curECID;
+                }
+                
                 generateTable();
                 _satellite.setCookie("FPID","Value-1",100);
                 //setCookie("FPID","value-1");
             }
             window.onload = generateUUID;
+
+            function retrieveECID() {
+                var cookieValue = _satellite.cookie.get("AMCV_53A16ACB5CC1D3760A495C99@AdobeOrg");
+                if(cookieValue.includes('MCMID')) {
+                    var ecid = cookieValue.split('MCMID|')[1];
+                    ecid = ecid.split('|')[0];
+                }
+            }
 
             function reload() {
                 if(cbFPID.checked == 1) {
@@ -76,6 +97,7 @@
                 } else {
                     document.getElementById("iframe").src = "PreLaunch_Demo.html";
                 }
+                generateTable();
             }
 
             function generateTable() {
@@ -101,8 +123,9 @@
                 row.appendChild(th);
 
                 let tbody = table.createTBody();
+                let fpid = "", ecid = "";
                 // Table Rows
-                for(let i = 0; i < 10; i++) {
+                for(let i = 0; i <= index; i++) {
                     row = tbody.insertRow();
 
                     td = document.createElement("td");
@@ -111,12 +134,20 @@
                     row.appendChild(td);
 
                     td = document.createElement("td");
-                    text = document.createTextNode(getUUID());
+                    fpid = fpidArray[index];
+                    if(!fpid) {
+                        fpid = "";
+                    }
+                    text = document.createTextNode(fpid);
                     td.appendChild(text);
                     row.appendChild(td);
 
                     td = document.createElement("td");
-                    text = document.createTextNode(getUUID());
+                    ecid = ecidArray[index];
+                    if(!ecid) {
+                        ecid = "";
+                    }
+                    text = document.createTextNode(ecid);
                     td.appendChild(text);
                     row.appendChild(td);
                 }
