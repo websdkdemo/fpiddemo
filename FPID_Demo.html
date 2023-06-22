@@ -84,11 +84,13 @@
             window.onload = generateUUID;
 
             function retrieveECID() {
+                var ecid = "";
                 var cookieValue = _satellite.cookie.get("AMCV_53A16ACB5CC1D3760A495C99@AdobeOrg");
                 if(cookieValue.includes('MCMID')) {
-                    var ecid = cookieValue.split('MCMID|')[1];
+                    ecid = cookieValue.split('MCMID|')[1];
                     ecid = ecid.split('|')[0];
                 }
+                return ecid;
             }
 
             function reload() {
