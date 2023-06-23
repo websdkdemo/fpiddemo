@@ -83,7 +83,7 @@
                 if(typeof cookieValue !== "undefined") {
                     if(cookieValue.includes('MCMID')) {
                         curECID = cookieValue.split('MCMID|')[1];
-                        curECID = ecid.split('|')[0];
+                        curECID = curECID.split('|')[0];
                         if(prevECID != curECID) {
                             index++;
                             ecidArray[index] = curECID;
