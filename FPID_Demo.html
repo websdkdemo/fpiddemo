@@ -80,7 +80,7 @@
             function retrieveECID() {
                 var ecid = "";
                 var cookieValue = _satellite.cookie.get("AMCV_53A16ACB5CC1D3760A495C99@AdobeOrg");
-                if(typeof cookieValue !== "undefined) {
+                if(typeof cookieValue !== "undefined") {
                     if(cookieValue.includes('MCMID')) {
                         ecid = cookieValue.split('MCMID|')[1];
                         ecid = ecid.split('|')[0];
