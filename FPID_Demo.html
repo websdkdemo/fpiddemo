@@ -71,7 +71,6 @@
                     //document.getElementById("fpidValue").innerHTML = "FPID Value: Not enabled yet";
                 }
                 updateIDArrays();
-                generateTable();
                 _satellite.setCookie("FPID","Value-1",100);
                 //setCookie("FPID","value-1");
             }
@@ -90,6 +89,7 @@
                             prevECID = curECID;
                         }
                     }
+                    generateTable();
                 } else {
                     setTimeout(updateIDArrays, 250)
                 }
@@ -102,7 +102,6 @@
                     document.getElementById("iframe").src = "PreLaunch_Demo.html";
                 }
                 updateIDArrays();
-                generateTable();
             }
 
             function generateTable() {
