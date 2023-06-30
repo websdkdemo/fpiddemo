@@ -52,7 +52,25 @@
                 var dt = new Date();
                 document.getElementById("timeStamp").innerHTML = "Refresh Timestamp: " + dt.toLocaleString();
             }
-            window.onload = refreshTimeStamp;
+            function getUUID() {
+                return ([1e7]+-1e3+-4e3+-8e3+-1e11).replace(/[018]/g, c =>
+                        (c ^ crypto.getRandomValues(new Uint8Array(1))[0] & 15 >> c / 4).toString(16)
+                    );
+            }
+            function generateUUID() {
+                var fpidValue = getUUID();
+                if(cbFPID.checked == 1) {
+                    document.getElementById("fpidValue").innerHTML = "FPID Value: " + fpidValue;
+                } else {
+                    document.getElementById("fpidValue").innerHTML = "FPID Value: " + fpidValue;
+                    //document.getElementById("fpidValue").innerHTML = "FPID Value: Not enabled yet";
+                }
+                updateIDArrays();
+                _satellite.setCookie("FPID",fpid,100);
+                refreshTimeStamp(); 
+                //setCookie("FPID","value-1");
+            }
+            window.onload = generateUUID;
         </script>
     </head>
     <body>
