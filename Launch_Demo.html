@@ -59,13 +59,7 @@
             }
             function generateUUID() {
                 var fpidValue = getUUID();
-                if(cbFPID.checked == 1) {
-                    document.getElementById("fpidValue").innerHTML = "FPID Value: " + fpidValue;
-                } else {
-                    document.getElementById("fpidValue").innerHTML = "FPID Value: " + fpidValue;
-                    //document.getElementById("fpidValue").innerHTML = "FPID Value: Not enabled yet";
-                }
-                updateIDArrays();
+                document.getElementById("fpidValue").innerHTML = "FPID Value: " + fpidValue;
                 _satellite.setCookie("FPID",fpid,100);
                 refreshTimeStamp(); 
                 //setCookie("FPID","value-1");
