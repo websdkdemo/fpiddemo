@@ -60,7 +60,7 @@
             function generateUUID() {
                 var fpidValue = getUUID();
                 document.getElementById("fpidValue").innerHTML = "FPID Value: " + fpidValue;
-                _satellite.setCookie("FPID",fpid,100);
+                _satellite.setCookie("FPID",fpidValue,100);
                 refreshTimeStamp(); 
                 //setCookie("FPID","value-1");
             }
