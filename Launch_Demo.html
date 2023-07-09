@@ -1,6 +1,8 @@
 <html>
     <head>
         <h3>FPID Launch Demo</h3>
+        <script src="https://assets.adobedtm.com/22bf1a13013f/2369da01ef6c/launch-4a912c92fe46-development.min.js" async></script>
+        <link rel="stylesheet" type="text/css" href="css/style.css" />
         <script type="text/javascript">
             function refreshTimeStamp() {
                 var dt = new Date();
@@ -63,9 +65,12 @@
                 "language": "en"
             };
         </script>
+        <script type="text/javascript">
+            if(!!_satellite) {
+                _satellite.track('custom-PageLoad');
+            }
+        </script>
 
-        <link rel="stylesheet" type="text/css" href="css/style.css" />
-        <script src="https://assets.adobedtm.com/22bf1a13013f/2369da01ef6c/launch-4a912c92fe46-development.min.js" async></script>
     </head>
     <body>
         <div id="timeStamp"></div>
