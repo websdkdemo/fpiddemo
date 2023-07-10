@@ -87,6 +87,10 @@
                             index++;
                             ecidArray[index] = curECID;
                             prevECID = curECID;
+                            var fpidValue = _satellite.cookie.get("FPID");
+                            if(typeof fpidValue !== "undefined") {
+                                fpidArray[index] = fpidValue;
+                            }
                         }
                     }
                     generateTable();
