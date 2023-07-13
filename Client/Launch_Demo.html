@@ -1,15 +1,33 @@
 <html>
     <head>
-        <h3>FPID Launch Demo</h3>
+        <h3>FPID Launch State</h3>
         <script src="https://assets.adobedtm.com/22bf1a13013f/2369da01ef6c/launch-4a912c92fe46-development.min.js" async></script>
         <link rel="stylesheet" type="text/css" href="css/style.css" />
         <script type="text/javascript">
-            function refreshTimeStamp() {
+            function populateValues() {
                 var dt = new Date();
                 document.getElementById("timeStamp").innerHTML = "Refresh Timestamp: " + dt.toLocaleString();
+
+                var curECID = "";
+                var cookieValue = _satellite.cookie.get("AMCV_53A16ACB5CC1D3760A495C99@AdobeOrg");
+                if(typeof cookieValue !== "undefined") {
+                    if(cookieValue.includes('MCMID')) {
+                        curECID = cookieValue.split('MCMID|')[1];
+                        curECID = curECID.split('|')[0];
+                        document.getElementById("ecid").innerHTML = "ECID: " + curECID;
+                        var fpidValue = _satellite.cookie.get("FPID");
+                        if(typeof fpidValue === "undefined") {
+                            fpidValue = "FPID Cookie doesn't exist."
+                        }
+                        document.getElementById("fpid").innerHTML = "FPID: " + fpidValue;
+                    }
+                } else {
+                    setTimeout(populateValues, 250)
+                }
             }
-            window.onload = refreshTimeStamp;
+            window.onload = populateValues;
         </script>
+
         <script type="text/javascript">
             window.digitalData = {
                 "page": {
@@ -56,7 +74,7 @@
     </head>
     <body>
         <div id="timeStamp"></div>
-        FPID Value: <div id="fpidValue"></div>
-        ECID Value: <div id="ecidValue"></div>
+        <div id="fpid"></div>
+        <div id="ecid"></div>
     </body>
 </html>
